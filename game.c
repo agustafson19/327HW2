@@ -14,36 +14,30 @@ typedef struct room_struct {
 
 void createrooms(room *rooms, int numrooms);
 int validrooms(room *rooms, int numrooms);
+void maprooms(char display[W_HEIGHT][W_WIDTH], room *rooms, int numrooms);
 void initDisplay(char display[W_HEIGHT][W_WIDTH]);
+void draw(char display[W_HEIGHT][W_WIDTH]);
 
 int main() {
+    /* Seeding */
     srand(time(NULL));
 
-    int i, j; //, k;
+    /* Declarations */
     int numrooms;
     room *rooms;
     char display[W_HEIGHT][W_WIDTH];
 
-    numrooms = 6 + rand() % 4;
+    /* Initialization */
+    numrooms = 6 + rand() % 2;
     rooms = malloc(sizeof(room) * numrooms);
     createrooms(rooms, numrooms);
     initDisplay(display);
-    /*
-    for (i = 0; i < numrooms; i++) {
-        for (j = 0; j < rooms[i].ysize; j++) {
-            for (k = 0; k < rooms[i].xsize; k++) {
-                display[rooms[i].ypos + k][rooms[i].xpos + j] = '.';
-            }
-        }
-    }
-    */
-    for (i = 0; i < W_HEIGHT; i++) {
-        for (j = 0; j < W_WIDTH; j++) {
-            printf("%c", display[i][j]);
-        }
-        printf("\n");
-    }
+    maprooms(display, rooms, numrooms);
+
+    /* Displaying Room */
+    draw(display);
     
+    /* Cleaning Memory */
     free(rooms);
 }
 
@@ -56,20 +50,59 @@ void createrooms(room *rooms, int numrooms) {
             rooms[i].xpos = rand() % (W_WIDTH - rooms[i].xsize);
             rooms[i].ypos = rand() % (W_HEIGHT - rooms[i].ysize);
         }
-    } while(0 /*!validrooms(rooms, numrooms)*/);
+    } while(!validrooms(rooms, numrooms));
 }
 
 int validrooms(room *rooms, int numrooms) {
     int i, j;
     for (i = 1; i < numrooms; i++) {
         for (j = 0; j < i; j++) {
-            if (!(rooms[i].xpos + rooms[i].xsize <= rooms[j].xpos || rooms[j].xpos + rooms[j].xsize <= rooms[i].xpos)
-                    && !(rooms[i].ypos + rooms[i].ysize <= rooms[j].ypos || rooms[j].ypos + rooms[j].ysize <= rooms[i].ypos)) {
+            if (!(rooms[i].xpos + rooms[i].xsize < rooms[j].xpos || rooms[j].xpos + rooms[j].xsize < rooms[i].xpos)
+                    && !(rooms[i].ypos + rooms[i].ysize < rooms[j].ypos || rooms[j].ypos + rooms[j].ysize < rooms[i].ypos)) {
                 return 0;
             }
         }
     }
     return 1;
+}
+
+void maprooms(char display[W_HEIGHT][W_WIDTH], room *rooms, int numrooms) {
+    int i, j, k;
+
+    for (i = 0; i < numrooms; i++) {
+        for (j = 0; j < rooms[i].ysize; j++) {
+            for (k = 0; k < rooms[i].xsize; k++) {
+                display[rooms[i].ypos + j][rooms[i].xpos + k] = '.';
+            }
+        }
+        /* display[rooms[i].ypos][rooms[i].xpos] = '0' + i; */
+    }
+
+    for (i = 1; i < numrooms; i++) {
+        for (j = rooms[i-1].ypos + rooms[i-1].ysize / 2; j <= rooms[i].ypos + rooms[i].ysize / 2; j++) {
+            if (display[j][rooms[i-1].xpos + rooms[i-1].xsize / 2] == ' ') {
+                display[j][rooms[i-1].xpos + rooms[i-1].xsize / 2] = '#';
+            }
+        }
+        for (j = rooms[i-1].ypos + rooms[i-1].ysize / 2; j >= rooms[i].ypos + rooms[i].ysize / 2; j--) {
+            if (display[j][rooms[i-1].xpos + rooms[i-1].xsize / 2] == ' ') {
+                display[j][rooms[i-1].xpos + rooms[i-1].xsize / 2] = '#';
+            }
+        }
+        for (j = rooms[i-1].xpos + rooms[i-1].xsize / 2; j <= rooms[i].xpos + rooms[i].xsize / 2; j++) {
+            if (display[rooms[i].ypos + rooms[i].ysize / 2][j] == ' ') {
+                display[rooms[i].ypos + rooms[i].ysize / 2][j] = '#';
+            }
+        }
+        for (j = rooms[i-1].xpos + rooms[i-1].xsize / 2; j >= rooms[i].xpos + rooms[i].xsize / 2; j--) {
+            if (display[rooms[i].ypos + rooms[i].ysize / 2][j] == ' ') {
+                display[rooms[i].ypos + rooms[i].ysize / 2][j] = '#';
+            }
+        }
+    }
+
+    display[rooms[0].ypos + rand() % rooms[0].ysize][rooms[0].xpos + rand() % rooms[0].xsize] = '>';
+    display[rooms[numrooms-1].ypos + rand() % rooms[numrooms-1].ysize][rooms[numrooms-1].xpos + rand() % rooms[numrooms-1].xsize] = '<';
 }
 
 void initDisplay(char display[W_HEIGHT][W_WIDTH]) {
@@ -78,5 +111,15 @@ void initDisplay(char display[W_HEIGHT][W_WIDTH]) {
         for (j = 0; j < W_WIDTH; j++) {
             display[i][j] = ' ';
         }
+    }
+}
+
+void draw(char display[W_HEIGHT][W_WIDTH]) {
+    int i, j;
+    for (i = 0; i < W_HEIGHT; i++) {
+        for (j = 0; j < W_WIDTH; j++) {
+            printf("%c", display[i][j]);
+        }
+        printf("\n");
     }
 }
