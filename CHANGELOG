@@ -1,0 +1,53 @@
+commit dd642f25224335db7700d40e4d0e1d182fd2b30a
+Author: agustafson19 <arvidg@iastate.edu>
+Date:   Thu Feb 11 10:33:26 2021 -0600
+
+    Added CHANGELOG and README
+    
+    Added a README with basic documentation, and an empty CHANGELOG.
+
+commit 56b51896b8e668733d0ef8db488e76405e463665
+Author: agustafson19 <arvidg@iastate.edu>
+Date:   Thu Feb 11 09:56:44 2021 -0600
+
+    Adjusted stair placement
+    
+    Eliminated randomness in stair placement.
+
+commit 6f8cc4214ef3dcaf6531a00252848f1f9b45425f
+Author: agustafson19 <arvidg@iastate.edu>
+Date:   Tue Feb 9 21:04:11 2021 -0600
+
+    Fully implemented generation
+    
+    Fixed errors regarding room placemnet, adjusted placement validity
+    rules, implemented simple corrodors, and addeed drawing stairs.
+    
+    Divided tasks completed into functions.
+
+commit 8b43bc88fcfd26df447a25df211d762a4a3f9bfd
+Author: agustafson19 <arvidg@iastate.edu>
+Date:   Tue Feb 9 17:43:25 2021 -0600
+
+    Added makefile, continued progress
+    
+    Added a makefile that builds only the game.c file. Split basic tasks
+    into functions, and added a way of validating room placement.
+
+commit 3c9a5068fb7ef18dc32385b1edde5d37304310ff
+Author: agustafson19 <arvidg@iastate.edu>
+Date:   Tue Feb 9 12:18:14 2021 -0600
+
+    Begun game and added a .gitignore
+    
+    Added a room struct and dynamically allocated array thereof.
+    Requires a room arrangement validation function next.
+    Currently, nothing displays.
+    
+    Added a .gitignore that currently ignores the binary game file.
+
+commit 67cfec1dd1b4aa13887b074ce579a178ce25b53f
+Author: agustafson19 <arvidg@iastate.edu>
+Date:   Tue Feb 9 11:45:04 2021 -0600
+
+    Initial Commit
