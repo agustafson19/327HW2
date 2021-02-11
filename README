@@ -1,0 +1,15 @@
+This file contains the functions necessary for basic room generation.
+
+The room struct is used to store the room data.
+
+The room pointer “rooms” points to the room data for the dungeon. There is currently one dungeon.
+
+The createrooms function randomly generates data for numrooms rooms.
+
+The validrooms function returns whether any two rooms intersect with each other.
+
+The maprooms function maps the rooms onto the display character array, draws corridors between them, and draws stairs. The placement of corridors and stairs are solely determined by the placement of the rooms, which is determined by the createrooms function.
+
+The initDisplay function clears the display character array.
+
+The draw function prints the display character array.
