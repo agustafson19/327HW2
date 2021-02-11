@@ -101,8 +101,8 @@ void maprooms(char display[W_HEIGHT][W_WIDTH], room *rooms, int numrooms) {
         }
     }
 
-    display[rooms[0].ypos + rand() % rooms[0].ysize][rooms[0].xpos + rand() % rooms[0].xsize] = '>';
-    display[rooms[numrooms-1].ypos + rand() % rooms[numrooms-1].ysize][rooms[numrooms-1].xpos + rand() % rooms[numrooms-1].xsize] = '<';
+    display[rooms[0].ypos + 1][rooms[0].xpos + 1] = '>';
+    display[rooms[numrooms-1].ypos + 1][rooms[numrooms-1].xpos + 1] = '<';
 }
 
 void initDisplay(char display[W_HEIGHT][W_WIDTH]) {
